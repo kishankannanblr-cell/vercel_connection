@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Computer Science - Chapter 4: Software Quest</title>
+    <meta name="description" content="An interactive educational computer game for IGCSE Computer Science Chapter 4 (Software), built for school presentation and computer lab student participation.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="brand">
+            <span class="brand-icon">💻</span>
+            <div>
+                <h1 class="brand-title">SOFTWARE QUEST</h1>
+                <div class="brand-sub">IGCSE Computer Science • Chapter 4</div>
+            </div>
+        </div>
+
+        <div class="header-controls">
+            <div class="nav-tab-bar">
+                <button class="nav-tab-btn active" id="btnNavReading" onclick="switchNavTab('reading')">📖 Study Guide</button>
+                <button class="nav-tab-btn" id="btnNavQuiz" onclick="switchNavTab('quiz')">🎮 Quiz Challenge</button>
+            </div>
+            <div class="stat-badge quiz-only-badge" style="display:none;">
+                👤 <span class="val valPlayer">Student</span>
+            </div>
+            <div class="stat-badge quiz-only-badge" style="display:none;">
+                ⭐ <span class="val valScore">0</span> Pts
+            </div>
+            <div class="stat-badge quiz-only-badge" style="display:none;">
+                🔥 <span class="val valStreak">0</span> Streak
+            </div>
+            <button class="btn-icon" id="btnMute" title="Toggle Mute / Sound SFX">🔊</button>
+            <button class="btn-icon quiz-only-badge" id="btnLeaderboard" title="Open Class Leaderboard" style="display:none;">🏆</button>
+        </div>
+    </header>
+
+    <!-- Main App Container -->
+    <main>
+
+        <!-- INTERACTIVE READING MATERIAL (DEFAULT OPEN FOR EVERYONE - NO NAME/ID REQUIRED) -->
+        <section id="screenReading" class="screen active">
+            <div class="reading-hero">
+                <span class="hero-badge">IGCSE Computer Science • Chapter 4 Revision</span>
+                <h2 class="reading-hero-title">Software <span>Core Guide</span></h2>
+                <p class="reading-hero-desc">
+                    Short, concise, exam-focused study guide covering all Chapter 4 concepts. Read through the key points below, then challenge your class in the interactive quiz!
+                </p>
+            <!-- FEATURED ANIMATED CINEMA VIDEO (50s UNMUTED) -->
+            <div class="cinema-video-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+                    <h3 style="font-size:20px; font-weight:800; color:var(--neon-cyan); display:flex; align-items:center; gap:8px;">
+                        🎬 Chapter 4 Animated Intro Video (50s)
+                    </h3>
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <button class="btn-cyber btn-secondary" onclick="openVideoFullscreen()" style="padding:6px 14px; font-size:12px;">📺 Fullscreen Cinema Mode</button>
+                        <span class="reading-pill">Sound On 🔊</span>
+                    </div>
+                </div>
+
+                <div class="video-wrapper">
+                    <div class="video-overlay-banner" id="videoOverlay" onclick="playUnmutedVideo()">
+                        <div class="video-overlay-btn">
+                            🔊 Click to Play Unmuted Video (50s) ▶
+                        </div>
+                        <span style="margin-top:12px; color:var(--text-muted); font-size:13px;">Full HD 3D Motion Graphic Animation</span>
+                    </div>
+
+                    <video controls id="introVideo" style="width:100%; max-height:540px; display:block; border-radius:var(--radius-md);">
+                        <source src="Animated Video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>   
+            </div>
+
+            <div class="reading-grid">
+                
+                <!-- CARD 1: Types of Software -->
+                <div class="reading-card">
+                    <div class="reading-card-header">
+                        <span class="reading-icon">⚙️</span>
+                        <h3 class="reading-card-title">1. Types of Software</h3>
+                        <span class="reading-pill">Section 4.1</span>
+                    </div>
+                    <div class="reading-body">
+                        <div class="concept-grid">
+                            <div class="concept-box">
+                                <strong>System Software:</strong> Manages computer hardware & system resources.
+                                <ul style="margin-top:6px; margin-left:18px;">
+                                    <li><strong>Operating System (OS):</strong> Manages RAM memory, CPU processes, security, & UI.</li>
+                                    <li><strong>Utility Programs:</strong> System maintenance (Disk Defragmenter, Anti-Virus, File Compression).</li>
+                                    <li><strong>Device Drivers:</strong> Translates OS commands for hardware devices (GPU, printer).</li>
+                                </ul>
+                            </div>
+
+                            <div class="concept-box">
+                                <strong>Application Software:</strong> Performs end-user tasks.
+                                <ul style="margin-top:6px; margin-left:18px;">
+                                    <li><strong>General-Purpose:</strong> Off-the-shelf software for wide tasks (Word, Excel, Web Browsers).</li>
+                                    <li><strong>Bespoke:</strong> Custom-built software for a specific client (ATM bank system, flight radar).</li>
+                                    <li><strong>Open Source vs Proprietary:</strong> Public source code vs copyrighted compiled binaries.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="interactive-reveal-btn" onclick="toggleReveal('rev1')">💡 Quick Exam Check: Bespoke vs General-Purpose</button>
+                        <div class="reveal-content" id="rev1">
+                            <strong>Exam Tip:</strong> General-purpose software is cheap & instantly available, but may have unnecessary features. Bespoke software is tailored perfectly to client needs, but is expensive and takes time to develop.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2: OS Functions & Interrupts -->
+                <div class="reading-card">
+                    <div class="reading-card-header">
+                        <span class="reading-icon">⚡</span>
+                        <h3 class="reading-card-title">2. OS & Interrupts</h3>
+                        <span class="reading-pill">Section 4.1</span>
+                    </div>
+                    <div class="reading-body">
+                        <div class="concept-grid">
+                            <div class="concept-box">
+                                <strong>5 OS Core Functions:</strong>
+                                <ol style="margin-top:6px; margin-left:18px;">
+                                    <li>User Interface (GUI vs CLI)</li>
+                                    <li>Memory Allocation & RAM Management</li>
+                                    <li>Multitasking & Process Scheduling</li>
+                                    <li>Peripheral / Hardware Management</li>
+                                    <li>File Management & Access Security</li>
+                                </ol>
+                            </div>
+
+                            <div class="concept-box">
+                                <strong>Interrupts & ISR (Interrupt Service Routine):</strong>
+                                <p style="margin-top:4px;">An <em>interrupt</em> is a signal requesting CPU attention.</p>
+                                <ul style="margin-top:6px; margin-left:18px;">
+                                    <li><strong>Hardware Interrupts:</strong> Printer paper jam, keypress, mouse click.</li>
+                                    <li><strong>Software Interrupts:</strong> Divide by zero error, stack overflow.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="interactive-reveal-btn" onclick="toggleReveal('rev2')">⚡ 4 Steps CPU Handles an Interrupt</button>
+                        <div class="reveal-content" id="rev2">
+                            1. CPU suspends current task execution.<br>
+                            2. Saves register state onto the stack.<br>
+                            3. Executes the specific <strong>Interrupt Service Routine (ISR)</strong>.<br>
+                            4. Restores saved registers and resumes original task.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3: Translators & Programming Languages -->
+                <div class="reading-card">
+                    <div class="reading-card-header">
+                        <span class="reading-icon">🔄</span>
+                        <h3 class="reading-card-title">3. Translators</h3>
+                        <span class="reading-pill">Section 4.2</span>
+                    </div>
+                    <div class="reading-body">
+                        <p style="margin-bottom:12px;">High-Level Languages (HLL) are human-readable (Python, Java). Low-Level Languages (Assembly, Machine Code) target CPU hardware directly.</p>
+
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Translator</th>
+                                    <th>Translation Method</th>
+                                    <th>Output</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Compiler</strong></td>
+                                    <td>Translates whole program at once</td>
+                                    <td>Standalone `.exe` file</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Interpreter</strong></td>
+                                    <td>Translates line-by-line</td>
+                                    <td>Immediate execution (stops on 1st error)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Assembler</strong></td>
+                                    <td>Converts mnemonics (`LDA`, `ADD`)</td>
+                                    <td>Machine code binary</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <button class="interactive-reveal-btn" onclick="toggleReveal('rev3')">💡 Exam Tip: Compiler vs Interpreter</button>
+                        <div class="reveal-content" id="rev3">
+                            <strong>Compilers</strong> produce fast-running executable files that hide original source code.<br>
+                            <strong>Interpreters</strong> are ideal during software development because errors are caught immediately line-by-line.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4: IDE Features -->
+                <div class="reading-card">
+                    <div class="reading-card-header">
+                        <span class="reading-icon">🛠️</span>
+                        <h3 class="reading-card-title">4. IDE Features</h3>
+                        <span class="reading-pill">Section 4.2</span>
+                    </div>
+                    <div class="reading-body">
+                        <div class="concept-grid">
+                            <div class="concept-box">
+                                <strong>✏️ Code Editor & Auto-Completion:</strong>
+                                <ul style="margin-top:6px; margin-left:18px;">
+                                    <li><strong>Code Editor:</strong> Line numbers, syntax color highlighting, auto-indentation.</li>
+                                    <li><strong>Auto-Completion:</strong> Parameter & keyword suggestions as you type.</li>
+                                </ul>
+                            </div>
+                            <div class="concept-box">
+                                <strong>🐞 Debugging & Runtime Tools:</strong>
+                                <ul style="margin-top:6px; margin-left:18px;">
+                                    <li><strong>Syntax Checker:</strong> Highlights real-time syntax errors before compiling.</li>
+                                    <li><strong>Debugger & Breakpoints:</strong> Pauses execution to inspect memory registers.</li>
+                                    <li><strong>Runtime Environment:</strong> 1-click execution engine inside IDE.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="interactive-reveal-btn" onclick="toggleReveal('rev4')">🐞 What is a Breakpoint?</button>
+                        <div class="reveal-content" id="rev4">
+                            A <strong>Breakpoint</strong> is a marker set on a specific line of code that pauses program execution so developers can inspect variable values stored in memory at that exact moment.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA BANNER TO START QUIZ -->
+            <div class="cta-banner">
+                <h3 class="cta-title">🎯 Ready to Test Your Knowledge?</h3>
+                <p class="cta-desc">Launch the 5-Stage Interactive Chapter 4 Quiz Challenge, compete on the class leaderboard, and earn an A* rank!</p>
+                <button class="btn-cyber" onclick="switchNavTab('quiz')">🚀 Launch Chapter 4 Game & Quiz Challenge</button>
+            </div>
+        </section>
+
+        <!-- WELCOME / QUIZ ENTRY SCREEN (Accessible via Quiz Tab or Challenge Button) -->
+        <section id="screenWelcome" class="screen">
+            <div class="welcome-hero">
+                <span class="hero-badge">Grade 10 Presentation Game</span>
+                <h2 class="hero-title">Chapter 4 <span>Quiz Challenge</span></h2>
+                <p class="hero-desc">
+                    Enter your name below to start the 5-stage interactive challenge. Your score will sync to the live classroom leaderboard!
+                </p>
+
+                <div class="glass-card" style="max-width: 500px; margin: 0 auto 30px auto; padding: 24px;">
+                    <label for="studentNameInput" style="display:block; text-align:left; font-size:14px; font-weight:600; margin-bottom:8px; color:var(--neon-cyan);">
+                        Enter Your Name / Alias:
+                    </label>
+                    <div class="name-input-group" style="margin-bottom:0;">
+                        <input type="text" id="studentNameInput" class="input-cyber" placeholder="e.g. Alex" maxlength="20">
+                        <button class="btn-cyber" id="btnStartGame">Play Now 🚀</button>
+                    </div>
+                </div>
+
+                <div class="mode-selector">
+                    <div class="mode-card" onclick="document.getElementById('studentNameInput').focus()">
+                        <div class="mode-icon">🕹️</div>
+                        <div class="mode-title">Student Laptop Mode</div>
+                        <div class="mode-desc">Play through all 5 interactive Chapter 4 levels, earn score points, and aim for an A* grade!</div>
+                    </div>
+                    <div class="mode-card" onclick="document.getElementById('btnLeaderboard').click()">
+                        <div class="mode-icon">📊</div>
+                        <div class="mode-title">Presentation Leaderboard</div>
+                        <div class="mode-desc">Display real-time student rankings and scores on the projector screen for the whole class.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STAGE TRACKER (Visible during active gameplay) -->
+        <div id="stageTrackerBar" class="stage-tracker" style="display:none;">
+            <div class="tracker-step" id="trackStep1">
+                <div class="tracker-dot">1</div> Software Types
+            </div>
+            <div class="tracker-step" id="trackStep2">
+                <div class="tracker-dot">2</div> OS Interrupts
+            </div>
+            <div class="tracker-step" id="trackStep3">
+                <div class="tracker-dot">3</div> Translators
+            </div>
+            <div class="tracker-step" id="trackStep4">
+                <div class="tracker-dot">4</div> IDE Tools
+            </div>
+            <div class="tracker-step" id="trackStep5">
+                <div class="tracker-dot">5</div> Exam Boss
+            </div>
+        </div>
+
+        <!-- STAGE 1: Software Classification -->
+        <section id="screenStage1" class="screen">
+            <div class="glass-card">
+                <div class="stage-title-bar">
+                    <h2 class="stage-title">⚙️ Stage 1: Software Classification</h2>
+                    <span style="font-size:14px; color:var(--text-muted);">Sort items into System vs Application Software</span>
+                </div>
+
+                <p style="margin-bottom:20px; color:var(--text-muted); font-size:14px;">
+                    Drag & drop (or click) each software card into the correct container:
+                </p>
+
+                <div class="cards-container" id="stage1Cards">
+                    <!-- Dynamic cards will be rendered here -->
+                </div>
+
+                <div class="classifier-grid">
+                    <div class="drop-zone" id="zoneSystem">
+                        <div class="zone-title">⚙️ System Software</div>
+                    </div>
+                    <div class="drop-zone" id="zoneApplication">
+                        <div class="zone-title">📱 Application Software</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STAGE 2: OS Functions & Interrupts -->
+        <section id="screenStage2" class="screen">
+            <div class="glass-card">
+                <div class="stage-title-bar">
+                    <h2 class="stage-title">⚡ Stage 2: OS Interrupt & Memory Simulator</h2>
+                    <span style="font-size:14px; color:var(--text-muted);">Handle CPU Interrupt Signals & Buffers</span>
+                </div>
+
+                <div id="stage2Content">
+                    <!-- Dynamic scenario content rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- STAGE 3: Translators (Compilers vs Interpreters vs Assemblers) -->
+        <section id="screenStage3" class="screen">
+            <div class="glass-card">
+                <div class="stage-title-bar">
+                    <h2 class="stage-title">🔄 Stage 3: Translator Showdown</h2>
+                    <span style="font-size:14px; color:var(--text-muted);">Compilers vs Interpreters vs Assemblers</span>
+                </div>
+
+                <div id="stage3Content">
+                    <!-- Dynamic translator cards rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- STAGE 4: IDE Feature Builder -->
+        <section id="screenStage4" class="screen">
+            <div class="glass-card">
+                <div class="stage-title-bar">
+                    <h2 class="stage-title">🛠️ Stage 4: IDE Tool Lab</h2>
+                    <span style="font-size:14px; color:var(--text-muted);">Integrated Development Environment Features</span>
+                </div>
+
+                <div id="stage4Content">
+                    <!-- Dynamic IDE features rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- STAGE 5: IGCSE Exam Boss Round -->
+        <section id="screenStage5" class="screen">
+            <div class="glass-card">
+                <div class="stage-title-bar">
+                    <h2 class="stage-title">👾 Stage 5: IGCSE Exam Boss Round</h2>
+                    <span style="font-size:14px; color:var(--text-muted);">Chapter 4 Paper 1 Challenge</span>
+                </div>
+
+                <div id="stage5Content">
+                    <!-- Dynamic exam questions rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULTS SCREEN -->
+        <section id="screenResults" class="screen">
+            <div class="glass-card results-hero">
+                <span class="hero-badge">Stage 5 Defeated</span>
+                <h2 class="hero-title" style="font-size:36px;">Chapter 4 <span>Mastered!</span></h2>
+
+                <div class="rank-badge" id="resBadge">👑</div>
+                <h3 id="resTitle" style="font-size:24px; color:var(--neon-cyan); margin-bottom:6px;">IGCSE Software Architect</h3>
+                <p style="color:var(--text-muted);">Player: <strong id="resName" style="color:#fff;">Student</strong></p>
+
+                <div class="stats-summary-grid">
+                    <div class="summary-card">
+                        <div class="summary-val" id="resScore">0</div>
+                        <div class="summary-lbl">Total Score</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-val" id="resAccuracy">0%</div>
+                        <div class="summary-lbl">Accuracy</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-val" id="resGrade">A*</div>
+                        <div class="summary-lbl">IGCSE Grade</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:24px; font-size:14px; color:var(--text-muted);">
+                    Max Answer Streak: <strong id="resMaxStreak" style="color:var(--neon-amber);">0</strong> 🔥
+                </div>
+
+                <div style="display:flex; gap:16px; justify-content:center;">
+                    <button class="btn-cyber" onclick="location.reload()">Play Again 🔄</button>
+                    <button class="btn-cyber btn-secondary" onclick="document.getElementById('btnLeaderboard').click()">Class Leaderboard 🏆</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- HOST LEADERBOARD MODAL -->
+    <div class="modal-overlay" id="modalLeaderboard">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 style="font-size:22px; font-weight:700; color:var(--neon-cyan); display:flex; align-items:center; gap:8px;">
+                    🏆 Presentation Class Leaderboard
+                </h3>
+                <button class="btn-icon" id="btnCloseLeaderboard">✕</button>
+            </div>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
+                Live updates for every student participating in the computer lab.
+            </p>
+
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Student Name</th>
+                        <th>Score</th>
+                        <th>Accuracy</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                    <!-- Dynamic leaderboard entries rendered here -->
+                </tbody>
+            </table>
+
+            <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+                <button class="btn-cyber btn-secondary" id="btnResetLeaderboard" style="padding:8px 16px; font-size:12px;">Reset Class Session</button>
+                <span style="font-size:12px; color:var(--text-muted);">Syncing live across lab tabs</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script imports -->
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Update stage tracker bar visibility when stage starts
+        const origStartStage = window.startStage;
+        window.startStage = function(stageNum) {
+            document.getElementById('stageTrackerBar').style.display = stageNum >= 1 && stageNum <= 5 ? 'flex' : 'none';
+            origStartStage(stageNum);
+        };
+    </script>
+</body>
+</html>
